@@ -24,6 +24,7 @@ import (
 
 	"github.com/go-zoo/bone"
 
+	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -31,12 +32,26 @@ import (
 
 // createUser function
 func createUser(w http.ResponseWriter, r *http.Request) {
-	// Set up defaults and pick up new values from user-provided JSON
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	u := models.User{}
 
+	if err = json.Unmarshal(body, &u); err != nil {
+		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// Set up defaults and pick up new values from user-provided JSON
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
-	u.Name = "Default name"
+	if u.Name == "" {
+		u.Name = "Default name"
+	}
 
 	// Creating UUID Version 4
 	uuid := uuid.NewV4()
@@ -45,6 +60,18 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	// Timestamp
 	t := time.Now().UTC().Format(time.RFC3339)
 	u.Created, u.Updated = t, t
+
+	p, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	u.Password = string(p)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	// Init MongoDB
 	Db := db.MgoDb{}

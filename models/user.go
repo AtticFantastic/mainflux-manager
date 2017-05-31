@@ -15,5 +15,8 @@ type (
 
 		Created string `json:"created"`
 		Updated string `json:"updated"`
+
+		Username string `json:"username"`
+		Password string `json:"password"`
 	}
 )
