@@ -1,4 +1,4 @@
-# Mainflux App Manager
+# Mainflux Manager
 
 [![License](https://img.shields.io/badge/license-Apache%20v2.0-blue.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/mainflux/mainflux-manager.svg?branch=master)](https://travis-ci.org/mainflux/mainflux-manager)

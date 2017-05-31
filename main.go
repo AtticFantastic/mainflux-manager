@@ -97,13 +97,12 @@ func main() {
 }
 
 var banner = `
-+-+-+-+-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+
-|M|a|i|n|f|l|u|x| |A|p|p| |M|a|n|a|g|e|r|
-+-+-+-+-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|M|a|i|n|f|l|u|x|-|M|a|n|a|g|e|r|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-        == Industrial IoT System ==
+   == Industrial IoT System ==
 
-       Made with <3 by Mainflux Team
 [w] http://mainflux.io
 [t] @mainflux
 
